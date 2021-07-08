@@ -1,13 +1,21 @@
-import { StatusBar } from 'expo-status-bar';
+
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import 'react-native-gesture-handler';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import RootStackScreen from './Screens/RootStackSreen'
+// import AppContext from './components/AppContext';
+import './Components/Global';
+
+const Stack = createStackNavigator();
 
 export default function App() {
+  // console.log(token);
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <NavigationContainer>
+      <RootStackScreen/>
+    </NavigationContainer>
   );
 }
 
