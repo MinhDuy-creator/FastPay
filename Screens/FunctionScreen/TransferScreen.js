@@ -1,7 +1,7 @@
 
 
 import * as React from 'react';
-import { StyleSheet,View, Text,Platform, TextInput, TouchableOpacity,StatusBar, ScrollView ,FlatList} from 'react-native';
+import { StyleSheet,View, Text,Platform, TextInput, TouchableOpacity,Alert, ScrollView ,FlatList} from 'react-native';
 import { Dimensions } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 
@@ -9,19 +9,19 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 function TranferScreen ({navigation}) {
     const [data, setData] = React.useState({
         Amount:0,
-        From:"",
+        To:"",
     });
     
-    function Recharge  ()  {
-        return fetch(global.url+'payment/top-up', { 
+    function Transfer  ()  {
+        return fetch(global.url+'payment/transfer', { 
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
             'token':global.token,
           },
          body: JSON.stringify({
-            from: data.From,
-            amount: Number(data.Amount),
+            amount: data.Amount,
+            to: data.To,
           })
         })
         .then((response) => {
@@ -30,9 +30,17 @@ function TranferScreen ({navigation}) {
           return Promise.all([statusCode, res]);
         })
         .then(([responseJson,res] ) => {
-            console.log(res.data)
+            // console.log(res.data)
               if(responseJson == 200){
-                navigation.navigate('HomeScreen')
+                // console.log(res.txid);
+                  global.txID = res.data;
+                  console.log(res.data);
+                  console.log(global.txID);
+                setData({
+                    ...data,
+                    ID:res.data
+                });
+                navigation.navigate('OTPconfirmScreen')
               }
               else{
                  console.warn(responseJson);
@@ -43,6 +51,7 @@ function TranferScreen ({navigation}) {
             console.error(error);
         });
       } 
+
   return (
     <View style={styles.container}>
         <View style={styles.header}>
@@ -67,30 +76,23 @@ function TranferScreen ({navigation}) {
                         textAlign="center"
                         onChangeText={(amount) => setData({
                             ...data,
-                            Amount:amount
+                            Amount:Number(amount)
                         })}
                     />
                 </View>
-            <Text style={styles.text_footer}>Receiver's Account</Text>
-            <View style={styles.BorderInput}>
-                <TextInput
-                    placeholder="Full Name"
-                    style={styles.TextInput}
-                    autoCapitalize="none"
-                    maxFontSizeMultiplier ={5}
-                    textAlign="center"
-                    // onChangeText={(val) => textInputChange(val)}
-                />
-            </View>
+            <Text style={styles.text_footer}>Receiver's Phone Num</Text>
             <View style={styles.BorderInput}>
                 <TextInput
                     placeholder="Phone Numeber"
                     keyboardType = 'numeric'
                     style={styles.TextInput}
                     autoCapitalize="none"
-                    maxFontSizeMultiplier ={5}
+                    maxLength={10}
                     textAlign="center"
-                    // onChangeText={(val) => textInputChange(val)}
+                    onChangeText={(val) => setData({
+                        ...data,
+                        To:val
+                    })}
                 />
             </View>
             <Text style={styles.text_footer}>Fee</Text>
@@ -98,7 +100,7 @@ function TranferScreen ({navigation}) {
                 <Text>1000đ</Text>
             </View>
             <TouchableOpacity 
-            // onPress={} 
+            onPress={Transfer} 
             style={styles.signIn}>
                 <Text style={[styles.textSign,{color:'#fff'}]}>Perform</Text>
             </TouchableOpacity>

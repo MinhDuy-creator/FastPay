@@ -140,6 +140,7 @@ const updateConfirmSecureTextEntry = () =>{
                     keyboardType = 'numeric'
                     placeholder="Your Phone Num"
                     style={styles.TextInput}
+                    maxLength={10}
                     autoCapitalize="none"
                     onChangeText={handleChange('phonenum')}
                     onBlur={handleBlur('phonenum')}

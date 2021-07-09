@@ -6,38 +6,39 @@ import { StyleSheet,View, Text,Platform, TextInput, TouchableOpacity,StatusBar,A
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Animatable from 'react-native-animatable';
+import Feather from 'react-native-vector-icons/Feather';
+import Header from '../../Components/Header';
+import { ContactSupportOutlined } from '@material-ui/icons';
 
 class HomeScreen extends Component {
     constructor(props){
       super(props);
       this.state={
         token:global.token,
-        fullname:"",
-        current_money:"",
-        Prev_fullname:"",
-        Prev_current_money:"",
+        DataFromServer:[],
         checkLogin:0,
+        PreBudget:0,
         validate_field:false,
         secureTextEntry:true,
       }
     }
 
      componentDidMount () {
-       this.getData()
+        // this.refreshDataFromServer();
+       
+        setInterval(
+            this.getData, 5000)
      }
 
-    //  componentDidUpdate() {
-    //     this.setState(
-    //         {Prev_fullname:this.state.fullname}
-    //     );
-    //     this.setState(
-    //         {Prev_current_money:this.state.current_money}
-    //     );
-    //     this.getData;
-    //     if (this.state.fullname != this.state.Prev_fullname) {
-    //       this.fetchData(this.props.userID);
-    //     }
-    //   }
+    //  refreshDataFromServer = () => {
+    //      this.getData().then((data)=>{
+    //         console.log(data);
+    //         this.setState({DataFromServer:data});
+    //         console.log(this.state.DataFromServer)
+    //      }).catch((error) => {
+    //         this.setState({DataFromServer:[]});
+    //      });
+    //  }
 
      getData = () => {
         fetch(global.url+'get-user', {
@@ -55,13 +56,9 @@ class HomeScreen extends Component {
          .then(([responseJson,res]) => {
              if(responseJson == 200){
                 console.log(res.data)
-                this.setState(
-                    {fullname:res.data.fullname}
-                );
-                this.setState(
-                    {current_money:res.data.budget}
-                );
-               }
+                // this.setState({PreBudget:res.})
+                this.setState({DataFromServer:res.data})
+            }
                else{
                  Alert.alert("Loading  Fail");
                }
@@ -73,33 +70,59 @@ class HomeScreen extends Component {
     
     render(){
         const { navigation } = this.props;
-        // this.getData();
         return (
-            <Animatable.View style={styles.container}
-            sleep={3000}>
+            <View style={styles.container}
+            >
             <LinearGradient
                 // Background Linear Gradient
                 colors={['#E26E43', '#F8CE0E']}
                 style={styles.background}
             />
                  <View style={styles.header}>
-                  <Animatable.View 
-                    animation="bounceIn"
-                    sleep={3000}
+                  <View 
                     style={{alignItems:'center'}}>
-                  <Text style={styles.title}>Hi!</Text>
-                      <Text style={styles.text_header}>{this.state.fullname} </Text>
-                  </Animatable.View>
+
+                    {/* Header Bar Here*/}
+                    <View style={styles.HeaderBar}>
+                            <TouchableOpacity
+                               style={{alignItems:'center'}}
+                               onPress={() => navigation.navigate('SignInScreen')}
+                            >
+                                <Feather
+                                    name="log-out"
+                                    color="#000"
+                                    size={30}
+                                />
+                            </TouchableOpacity>            
+                        <Text style={styles.text_header}>Hi {this.state.DataFromServer.fullname}</Text>
+                            <TouchableOpacity
+                               style={{alignItems:'center'}}
+                               onPress={() => navigation.navigate('SignInScreen')}
+                            >
+                                <Feather
+                                    name="bell"
+                                    color="#000"
+                                    size={30}
+                                />
+                            </TouchableOpacity>            
+                    </View>
+                    {/* Header Info */}
+                    <View style={styles.HeaderInfo}>
+                        <View>
+                            <Text>Phone:{this.state.DataFromServer.phone}</Text>
+                            <Text>Email :{this.state.DataFromServer.email}</Text>
+                        </View>
+                        <View>
+                            <Text>Budget :{this.state.DataFromServer.budget}</Text>
+                        </View>
+                    </View>
+                  </View>
                  </View>
                  <Animatable.View
                  animation="bounceIn"
-                 sleep={3000}
+                 
                  style={styles.footer}>
-                     <View style={{flexDirection:'row-reverse',alignItems:'center',justifyContent:'center',backgroundColor:'#009387',height:50, marginHorizontal:10,borderRadius:10}}>
-                      <Text style={styles.text_footer}>Current Money:{this.state.current_money} đ</Text>
-                     </View>
-                          <View style={styles.ButtonBox}>
-                              <View style={styles.miniButtonBox}>
+                    <View style={styles.ButtonBox}>      
                               <TouchableOpacity
                                style={{alignItems:'center'}}
                                onPress={() => navigation.navigate('RechargeScreen')}
@@ -113,7 +136,7 @@ class HomeScreen extends Component {
                               </TouchableOpacity>
                               
                               <TouchableOpacity
-                               style={{alignItems:'center',marginTop:60}}
+                               style={{alignItems:'center'}}
                                onPress={() => navigation.navigate('TransferScreen')}
                                >
                                     <FontAwesome
@@ -122,11 +145,10 @@ class HomeScreen extends Component {
                                     size={80}
                                     />
                                     <Text style={styles.text_footer}>Transfer</Text>
-                              </TouchableOpacity>
-                              
-                              </View>
-                              <View style={styles.miniButtonBox}>
-                              <TouchableOpacity
+                              </TouchableOpacity>         
+                    </View>
+                    <View style={styles.underButtonBox}>
+                                <TouchableOpacity
                                style={{alignItems:'center'}}
                                onPress={() => navigation.navigate('WithdrawalScreen')}
                                >
@@ -134,16 +156,16 @@ class HomeScreen extends Component {
                                     name="arrow-circle-left"
                                     color="#E26E43"
                                     size={80}
-                                    transform={{ rotate: 42 }}
+                                    
                                     // style={}
                                     />
                                     <Text style={styles.text_footer}>Withdraw</Text>
-                              </TouchableOpacity>
+                                </TouchableOpacity>
                              
-                              <TouchableOpacity
-                               style={{alignItems:'center',marginTop:60}}
-                               onPress={() => navigation.navigate('HistoryTransScreen')}
-                               >
+                                <TouchableOpacity
+                               style={{alignItems:'center'}}
+                                onPress={() => navigation.navigate('HistoryTransScreen')}
+                                >
                                   <FontAwesome
                                   name="history"
                                   color="#E26E43"
@@ -151,12 +173,10 @@ class HomeScreen extends Component {
                                   // style={}
                                   />
                                   <Text style={styles.text_footer}>Transaction History</Text>
-                              </TouchableOpacity>
-                              
-                              </View>
-                          </View>
+                                </TouchableOpacity>
+                    </View>
                  </Animatable.View>
-            </Animatable.View>
+            </View>
         );
     }
     
@@ -165,8 +185,8 @@ class HomeScreen extends Component {
   export default HomeScreen;
 
   const {height} = Dimensions.get("screen");
-  const height_logo = height * 0.28;
-
+  const height_headerbar = height * 0.1;
+  const {width} = Dimensions.get("screen");
   const styles = StyleSheet.create({
     container: {
       flex: 1, 
@@ -179,9 +199,27 @@ class HomeScreen extends Component {
         top: 0,
         height: height,
       },
+    HeaderBar:{
+        backgroundColor:'#fff',
+        flexDirection:'row',
+        width:width,
+        height:height_headerbar,
+        alignItems:'flex-end',
+        paddingBottom:10,
+        justifyContent:'space-around'
+    },
+    HeaderInfo:{
+        backgroundColor:'transparent',
+        flexDirection:'row',
+        width:width,
+        height:100 ,
+        alignItems:'flex-end',
+        paddingBottom:10,
+        justifyContent:'space-around'
+    },
     header: {
         flex: 1,
-        justifyContent: 'flex-end',
+        justifyContent: 'flex-start',
         // alignItems:'center',
         paddingHorizontal: 20,
         paddingBottom: 50
@@ -191,28 +229,36 @@ class HomeScreen extends Component {
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
-        // paddingHorizontal: 20,
-        paddingVertical: 30
+        alignItems:'center',
+        justifyContent:'center'
     },
     text_header: {
-        color: '#fff',
+        color: '#000',
         fontWeight: 'bold',
-        fontSize: 30
+        fontSize: 25,
+       
     },
     text_footer: {
-        marginTop:5,
+        // marginTop:5,
         color: '#E26E43',
         fontSize: 18
     },
     ButtonBox:{
         flexDirection:'row',
-        flex:1,
-        paddingHorizontal: 20,
+        // backgroundColor:'#000',
+        width:'100%',
+        height:'30%',
+        alignItems:'center',
+        justifyContent:'space-around'
     },
-    miniButtonBox:{
-        margin:40,
-        justifyContent:'center',
-        alignItems:'center'
+    underButtonBox:{
+        flexDirection:'row',
+        // backgroundColor:'#000',
+        width:'100%',
+        height:'30%',
+        alignItems:'center',
+        justifyContent:'space-around',
+        marginLeft:45,
     },
     action: {
         flexDirection: 'row',

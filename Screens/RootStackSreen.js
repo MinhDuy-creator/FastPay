@@ -12,7 +12,8 @@ import WithdrawalScreen from './FunctionScreen/WithdrawalScreen';
 import TransferScreen from './FunctionScreen/TransferScreen';
 import HistoryTransScreen from './FunctionScreen/HistoryTransScreen';
 import Tabbar from './TabBarScreen';
-import TransactionDetailScreen from './TransactionDetailScreen'
+import TransactionDetailScreen from './TransactionDetailScreen';
+
 
 const RootStack = createStackNavigator();
 
@@ -20,10 +21,12 @@ export default function RootStackScreen() {
   return (
     <RootStack.Navigator
     screenOptions={{
-      headerShown: false
+      headerShown: false,
+
     }}
     >
-         
+        
+        
         <RootStack.Screen name="SplashScreen" component={SplashScreen}/>
         <RootStack.Screen name="SignInScreen" component={SignInScreen}/>
         <RootStack.Screen name="SignUpScreen" component={SignUpScreen}/>
@@ -33,7 +36,7 @@ export default function RootStackScreen() {
         <RootStack.Screen name="TransferScreen" component={TransferScreen}/>
         <RootStack.Screen name="HistoryTransScreen" component={HistoryTransScreen}/>
         <RootStack.Screen name="TransactionDetailScreen" component={TransactionDetailScreen}/>
-        <RootStack.Screen name="OTPconfirmScreen" component={OTPconfirmScreen}/>
+        <RootStack.Screen name="OTPconfirmScreen" component={OTPconfirmScreen} />
         <RootStack.Screen name="SuccessScreen" component={SuccessScreen}/>
     </RootStack.Navigator>
   );

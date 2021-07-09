@@ -24,7 +24,7 @@ function SplashScreen  ({navigation}) {
         </View>
         <Animatable.View 
         animation="fadeInUpBig"
-        duration={1500}
+        // duration={1500}
         style={styles.footer}>
             <Text style={styles.title}>Stay connected with everyone!</Text>
             <Text style={styles.Text}>Sign in with account</Text>

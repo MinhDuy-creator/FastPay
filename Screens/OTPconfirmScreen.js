@@ -1,20 +1,22 @@
 import * as React from 'react';
-import { StyleSheet ,View, Text,Alert, TouchableOpacity,navigation, TextInput } from 'react-native';
+import { StyleSheet ,View, Text,Alert, TouchableOpacity, TextInput, } from 'react-native';
 import {Component} from 'react';
 import { Dimensions } from 'react-native';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import * as Animatable from 'react-native-animatable';
-// MyCustomComponent = Animatable.createAnimatableComponent(MyCustomComponent);
-function OTPconfirmScreen ({route,navigation}) {
- 
-        const  IdTrans  = route.params;
-        const [data, setData] = React.useState({
-            OTP:0,
-            ID:"",
-        });
+import { LinearGradient } from 'expo-linear-gradient';
+
+class OTPconfirmScreen extends Component {
+
+    constructor(props){
+      super(props);
+      this.state={
+        otp:0,
+      }
+    }
     
 
-    function OtpConfirm  () {
+    OtpConfirm = () => {
         return fetch(global.url+'payment/process-tx', { 
           method: 'POST',
           headers: {
@@ -23,7 +25,7 @@ function OTPconfirmScreen ({route,navigation}) {
           },
           body: JSON.stringify({
             txid: global.txID,
-            OTP: Number(data.OTP),
+            OTP: this.state.OTP,
           })
         })
         .then((response) => {
@@ -32,78 +34,93 @@ function OTPconfirmScreen ({route,navigation}) {
           return Promise.all([statusCode, res]);
         })
         .then(([responseJson,res] ) => {
-            console.log(responseJson)
-            console.log(res)
             if(responseJson == 200){
-                navigation.navigate('SuccessScreen')
+                this.props.navigation.navigate('SuccessScreen');
             }
             else{
-                Alert.alert("Thông báo!","Bạn đã đăng ký không thành công!");
+                Alert.alert(res.data);
             }
         })
         .catch((error) =>{
-          console.error(error.error);
+          console.error(error);
         });
       }
 
-  
-    
-    return (
+    render(){
+      const { navigation } = this.props;
+      return (
         <View style={styles.container}>
+          <LinearGradient
+                // Background Linear Gradient
+                colors={['#E26E43', '#F8CE0E']}
+                style={styles.background}
+            />
             <View style={styles.header}>
                 <Text style={styles.text_header}>OTP Confirmation</Text>
-                <Text></Text>
+            </View>
+            <View style={styles.footer}>
                 <View style={styles.BorderInput}>
                         <TextInput
                             placeholder="Input OTP here to Confirm !!!"
                             keyboardType = 'numeric'
                             style={styles.TextInput}
                             autoCapitalize="none"
-                            maxFontSizeMultiplier ={5}
                             textAlign="center"
                             maxLength = {6}
-                            onChangeText={(val) => setData({
-                                ...data,
-                                OTP:val
-                            })}
+                            onChangeText={(val) => this.setState({OTP:123456})}
                         />
                 </View>
                 <Text style={{marginTop:10,fontSize:20}}> 
                     If you don't get OTP, press below
                 </Text>
-                <Text>{global.txID}</Text>
                 <TouchableOpacity onPress={ ()=>{}} >
                     <Text style={[styles.textSign,{color:'#F39C12',fontSize:18}]}>Here</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={OtpConfirm} style={styles.signUp}>
-                    <Text style={[styles.textSign,{color:'#fff'}]}>CONFIRM</Text>
-                </TouchableOpacity>
-            </View>
-            <View style={styles.footer}>
-    
+                <TouchableOpacity style={{alignItems:'center',justifyContent:'center'}}
+                  onPress={this.OtpConfirm} >
+                    <LinearGradient style={styles.signIn}
+                    colors={['#E26E43', '#F8CE0E']}>
+                      <Text style={[styles.textSign,{color:'#fff'}]}>Sign In</Text>
+                    </LinearGradient>
+                  </TouchableOpacity>
             </View>
         </View>
+        
       );
     }
-    
-  
+    }
 
+    
+  export default OTPconfirmScreen;
+
+  const {height} = Dimensions.get("screen");
+  const height_logo = height * 0.28;
 
 const styles = StyleSheet.create({
     container: {
      flex:1,
      backgroundColor:'#009387'
     },
+    background: {
+      position: 'absolute',
+      left: 0,
+      right: 0,
+      top: 0,
+      height: height,
+    },
     footer:{
         flex:2,
         justifyContent:'center',
         alignItems:'center',
+        backgroundColor:'#fff',
+        borderTopLeftRadius:30,
+        borderTopRightRadius:30,
+        paddingVertical:50,
+        paddingHorizontal:30,
     },
     header:{
-        flex:2,
-        backgroundColor:'#fff',
-        borderBottomLeftRadius:30,
-        borderBottomRightRadius:30,
+        flex:1,
+        // backgroundColor:'#fff',
         paddingVertical:50,
         paddingHorizontal:30,
         // justifyContent:'center',
@@ -149,7 +166,7 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: 'bold'
     },
-    signUp: {
+    signIn: {
         marginTop:10,
         width: 120,
         height: 40,
@@ -160,4 +177,4 @@ const styles = StyleSheet.create({
     },
   });
 
-  export default OTPconfirmScreen;
+ 

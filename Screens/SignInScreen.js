@@ -93,7 +93,7 @@ class SignInScreen extends Component {
           <Text>{this.state.validate_field}</Text>
         </View>
         <Animatable.View style={styles.footer}
-          duration={1500}
+          // duration={1500}
           animation="fadeInUpBig"
         >
           <Text style={styles.text_footer}>PhoneNum</Text>
@@ -142,12 +142,14 @@ class SignInScreen extends Component {
              </TouchableOpacity>
           </View>
           <View style={styles.button}>
-            <LinearGradient style={styles.signIn}
+          <LinearGradient style={styles.signIn}
             colors={['#E26E43', '#F8CE0E']}>
-              <TouchableOpacity onPress={this._login} >
+              <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
+                      onPress={this._login} >
                 <Text style={[styles.textSign,{color:'#fff'}]}>Sign In</Text>
+                
               </TouchableOpacity>
-            </LinearGradient>
+              </LinearGradient>
             <LinearGradient 
             colors={['#E26E43', '#F8CE0E']}
             style={{marginTop:10,padding:5,borderRadius: 20,width: '50%',
@@ -237,13 +239,13 @@ class SignInScreen extends Component {
     },
     signIn: {
         marginTop:10,
-        padding:10,
+        // padding:10,
         width: '50%',
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
-        backgroundColor:'#009387'
+        // backgroundColor:'#009387'
     },
     signUp: {
       height: 45,

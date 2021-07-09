@@ -1,10 +1,10 @@
 
 
 import * as React from 'react';
-import { StyleSheet,View, Text,Platform, TextInput, TouchableOpacity,StatusBar, ScrollView ,Alert} from 'react-native';
+import { StyleSheet,View, Text,Platform, TextInput, TouchableOpacity, ScrollView ,Alert} from 'react-native';
 import { Dimensions } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 function RechargeScreen  ({navigation}) {
     const [data, setData] = React.useState({
@@ -21,8 +21,7 @@ function RechargeScreen  ({navigation}) {
             'token':global.token,
           },
          body: JSON.stringify({
-            from: data.From,
-            amount: Number(data.Amount),
+            amount: data.Amount,
           })
         })
         .then((response) => {
@@ -31,14 +30,16 @@ function RechargeScreen  ({navigation}) {
           return Promise.all([statusCode, res]);
         })
         .then(([responseJson,res] ) => {
-            console.log(res.data)
+            // console.log(res.data)
               if(responseJson == 200){
-                  global.txtID = res.data
-                  console.log(global.token);
-                // setData({
-                //     ...data,
-                //     ID:res.data
-                // })
+                // console.log(res.txid);
+                  global.txID = res.data.txid;
+                  console.log(res.data);
+                  console.log(global.txID);
+                setData({
+                    ...data,
+                    ID:res.data
+                });
                 navigation.navigate('OTPconfirmScreen')
               }
               else{
@@ -53,6 +54,11 @@ function RechargeScreen  ({navigation}) {
 
   return (
     <View style={styles.container}>
+        <LinearGradient
+                // Background Linear Gradient
+                colors={['#E26E43', '#F8CE0E']}
+                style={styles.background}
+            />
         <View style={styles.header}>
             <Text style={styles.text_header}>Recharge</Text>
             <FontAwesome
@@ -75,35 +81,10 @@ function RechargeScreen  ({navigation}) {
                         textAlign="center"
                         onChangeText={(amount) => setData({
                             ...data,
-                            Amount:amount
+                            Amount:Number(amount)
                         })}
                     />
                 </View>
-            <Text style={styles.text_footer}>Bank Account</Text>
-            <View style={styles.BorderInput}>
-                <TextInput
-                    placeholder="Bank's Name"
-                    style={styles.TextInput}
-                    autoCapitalize="none"
-                    maxFontSizeMultiplier ={5}
-                    textAlign="center"
-                    onChangeText={(from) => setData({
-                        ...data,
-                        From:from
-                    })}
-                />
-            </View>
-            <View style={styles.BorderInput}>
-                <TextInput
-                    placeholder="Bank's Account"
-                    keyboardType = 'numeric'
-                    style={styles.TextInput}
-                    autoCapitalize="none"
-                    maxFontSizeMultiplier ={5}
-                    textAlign="center"
-                    // onChangeText={(val) => textInputChange(val)}
-                />
-            </View>
             <Text style={styles.text_footer}>Fee</Text>
             <View style={styles.BorderInput}>
                 <Text>1000đ</Text>
@@ -130,6 +111,13 @@ function RechargeScreen  ({navigation}) {
       flex: 1, 
       backgroundColor: '#009387'
     },
+    background: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: height,
+      },
     header: {
         flex: 1,
         alignItems:'center',

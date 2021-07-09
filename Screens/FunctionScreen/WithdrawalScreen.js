@@ -1,7 +1,7 @@
 
 
 import * as React from 'react';
-import { StyleSheet,View, Text,Platform, TextInput, TouchableOpacity,StatusBar, ScrollView ,FlatList} from 'react-native';
+import { StyleSheet,View, Text,Platform, TextInput, TouchableOpacity,Alert, ScrollView ,FlatList} from 'react-native';
 import { Dimensions } from 'react-native';
 import { createStackNavigator } from '@react-navigation/stack';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
@@ -14,38 +14,41 @@ function WithdrawalScreen  ({navigation}) {
         From:"",
     });
     
-    // function Withdraw  ()  {
-    //     return fetch(global.url+'payment/top-up', { 
-    //       method: 'POST',
-    //       headers: {
-    //         'Content-Type': 'application/json',
-    //         'token':global.token,
-    //       },
-    //      body: JSON.stringify({
-    //         from: data.From,
-    //         amount: Number(data.Amount),
-    //       })
-    //     })
-    //     .then((response) => {
-    //       const statusCode = response.status;
-    //       const res = response.json();
-    //       return Promise.all([statusCode, res]);
-    //     })
-    //     .then(([responseJson,res] ) => {
-    //         console.log(data.From)
-    //         console.log(data.Amount)
-    //           if(responseJson == 200){
-    //             navigation.navigate('SuccessScreen')
-    //           }
-    //           else{
-    //              console.warn(responseJson);
-    //               Alert.alert("Transaction Fail");
-    //           }
-    //     })
-    //     .catch((error) =>{
-    //         console.error(error);
-    //     });
-    //   } 
+    function Withdraw  ()  {
+        return fetch(global.url+'payment/withdraw', { 
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'token':global.token,
+          },
+         body: JSON.stringify({
+            amount: data.Amount,
+          })
+        })
+        .then((response) => {
+          const statusCode = response.status;
+          const res = response.json();
+          return Promise.all([statusCode, res]);
+        })
+        .then(([responseJson,res] ) => {
+            // console.log(res.data)
+              if(responseJson == 200){
+                
+                  global.txID = res.data;
+                  console.log(res.txid);
+                  console.log(res.data);
+                  console.log(global.txID);
+                navigation.navigate('OTPconfirmScreen')
+              }
+              else{
+                 console.warn(responseJson);
+                  Alert.alert("Transaction Fail");
+              }
+        })
+        .catch((error) =>{
+            console.error(error);
+        });
+      } 
   return (
     <View style={styles.container}>
         <View style={styles.header}>
@@ -70,36 +73,16 @@ function WithdrawalScreen  ({navigation}) {
                         textAlign="center"
                         onChangeText={(amount) => setData({
                             ...data,
-                            Amount:amount
+                            Amount:Number(amount)
                         })}
                     />
                 </View>
-            <Text style={styles.text_footer}>Bank Account</Text>
-            <View style={styles.BorderInput}>
-                <TextInput
-                    placeholder="Bank's Name"
-                    style={styles.TextInput}
-                    autoCapitalize="none"
-                    maxFontSizeMultiplier ={5}
-                    textAlign="center"
-                />
-            </View>
-            <View style={styles.BorderInput}>
-                <TextInput
-                    placeholder="Bank's Account"
-                    keyboardType = 'numeric'
-                    style={styles.TextInput}
-                    autoCapitalize="none"
-                    maxFontSizeMultiplier ={5}
-                    textAlign="center"
-                />
-            </View>
             <Text style={styles.text_footer}>Fee</Text>
             <View style={styles.BorderInput}>
                 <Text>1000đ</Text>
             </View>
             <TouchableOpacity 
-            // onPress={Withdraw} 
+            onPress={Withdraw} 
             style={styles.signIn}>
                 <Text style={[styles.textSign,{color:'#fff'}]}>Perform</Text>
             </TouchableOpacity>
