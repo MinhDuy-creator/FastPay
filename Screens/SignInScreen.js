@@ -147,9 +147,8 @@ class SignInScreen extends Component {
               <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
                       onPress={this._login} >
                 <Text style={[styles.textSign,{color:'#fff'}]}>Sign In</Text>
-                
               </TouchableOpacity>
-              </LinearGradient>
+          </LinearGradient>
             <LinearGradient 
             colors={['#E26E43', '#F8CE0E']}
             style={{marginTop:10,padding:5,borderRadius: 20,width: '50%',
@@ -239,14 +238,16 @@ class SignInScreen extends Component {
     },
     signIn: {
         marginTop:10,
-        // padding:10,
         width: '50%',
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
         borderRadius: 20,
-        // backgroundColor:'#009387'
     },
+    textSign: {
+      fontSize: 18,
+      fontWeight: 'bold'
+  },
     signUp: {
       height: 45,
       justifyContent: 'center',
@@ -254,8 +255,5 @@ class SignInScreen extends Component {
       borderRadius: 20,
       backgroundColor:'#fff'
   },
-    textSign: {
-        fontSize: 18,
-        fontWeight: 'bold'
-    }
+   
   });

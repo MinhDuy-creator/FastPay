@@ -7,8 +7,8 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import { LinearGradient } from 'expo-linear-gradient';
 import * as Animatable from 'react-native-animatable';
 import Feather from 'react-native-vector-icons/Feather';
-import Header from '../../Components/Header';
-import { ContactSupportOutlined } from '@material-ui/icons';
+
+
 
 class HomeScreen extends Component {
     constructor(props){
@@ -24,10 +24,10 @@ class HomeScreen extends Component {
     }
 
      componentDidMount () {
-        // this.refreshDataFromServer();
+        this.getData();
        
-        setInterval(
-            this.getData, 5000)
+        // setInterval(
+        //     this.getData, 5000)
      }
 
     //  refreshDataFromServer = () => {
@@ -39,6 +39,11 @@ class HomeScreen extends Component {
     //         this.setState({DataFromServer:[]});
     //      });
     //  }
+
+     LogOut = () => {
+         global.token="";
+         this.props.state.navigation.navigate('SignInScreen');
+     }
 
      getData = () => {
         fetch(global.url+'get-user', {
@@ -86,7 +91,7 @@ class HomeScreen extends Component {
                     <View style={styles.HeaderBar}>
                             <TouchableOpacity
                                style={{alignItems:'center'}}
-                               onPress={() => navigation.navigate('SignInScreen')}
+                               onPress={this.LogOut}
                             >
                                 <Feather
                                     name="log-out"
@@ -97,23 +102,23 @@ class HomeScreen extends Component {
                         <Text style={styles.text_header}>Hi {this.state.DataFromServer.fullname}</Text>
                             <TouchableOpacity
                                style={{alignItems:'center'}}
-                               onPress={() => navigation.navigate('SignInScreen')}
+                               onPress={() => navigation.navigate('HistoryTransScreen')}
                             >
-                                <Feather
-                                    name="bell"
-                                    color="#000"
-                                    size={30}
-                                />
+                                <FontAwesome
+                                  name="history"
+                                  color="black"
+                                  size={30}
+                                  />
                             </TouchableOpacity>            
                     </View>
                     {/* Header Info */}
                     <View style={styles.HeaderInfo}>
-                        <View>
-                            <Text>Phone:{this.state.DataFromServer.phone}</Text>
-                            <Text>Email :{this.state.DataFromServer.email}</Text>
+                        <View >
+                            <Text style={{fontWeight:'bold'}}>Phone:{this.state.DataFromServer.phone}</Text>
+                            <Text style={{fontWeight:'bold'}}>Email :{this.state.DataFromServer.email}</Text>
                         </View>
                         <View>
-                            <Text>Budget :{this.state.DataFromServer.budget}</Text>
+                            <Text style={{fontWeight:'bold'}}>Budget :{this.state.DataFromServer.budget}</Text>
                         </View>
                     </View>
                   </View>
@@ -124,57 +129,44 @@ class HomeScreen extends Component {
                  style={styles.footer}>
                     <View style={styles.ButtonBox}>      
                               <TouchableOpacity
-                               style={{alignItems:'center'}}
+                               style={{alignItems:'center',borderWidth:2,borderRadius:10,padding:5,borderColor:'#E26E43'}}
                                onPress={() => navigation.navigate('RechargeScreen')}
                                >                          
                                     <FontAwesome
                                     name="arrow-circle-right"
                                     color="#E26E43"
-                                    size={80}
+                                    size={50}
                                     />
                                     <Text style={styles.text_footer}>Recharge</Text>
                               </TouchableOpacity>
                               
                               <TouchableOpacity
-                               style={{alignItems:'center'}}
+                               style={{alignItems:'center',borderWidth:2,borderRadius:10,padding:5,borderColor:'#E26E43'}}
                                onPress={() => navigation.navigate('TransferScreen')}
                                >
                                     <FontAwesome
                                     name="random"
                                     color="#E26E43"
-                                    size={80}
+                                    size={50}
                                     />
                                     <Text style={styles.text_footer}>Transfer</Text>
-                              </TouchableOpacity>         
-                    </View>
-                    <View style={styles.underButtonBox}>
-                                <TouchableOpacity
-                               style={{alignItems:'center'}}
+                              </TouchableOpacity>
+                              
+                              <TouchableOpacity
+                              style={{alignItems:'center',borderWidth:2,borderRadius:10,padding:5,borderColor:'#E26E43'}}
                                onPress={() => navigation.navigate('WithdrawalScreen')}
                                >
                                     <FontAwesome
                                     name="arrow-circle-left"
                                     color="#E26E43"
-                                    size={80}
+                                    size={50}
                                     
                                     // style={}
                                     />
                                     <Text style={styles.text_footer}>Withdraw</Text>
-                                </TouchableOpacity>
-                             
-                                <TouchableOpacity
-                               style={{alignItems:'center'}}
-                                onPress={() => navigation.navigate('HistoryTransScreen')}
-                                >
-                                  <FontAwesome
-                                  name="history"
-                                  color="#E26E43"
-                                  size={80}
-                                  // style={}
-                                  />
-                                  <Text style={styles.text_footer}>Transaction History</Text>
-                                </TouchableOpacity>
+                                </TouchableOpacity>       
                     </View>
+                    
                  </Animatable.View>
             </View>
         );
@@ -212,9 +204,9 @@ class HomeScreen extends Component {
         backgroundColor:'transparent',
         flexDirection:'row',
         width:width,
-        height:100 ,
+        height:200 ,
         alignItems:'flex-end',
-        paddingBottom:10,
+        paddingBottom:5,
         justifyContent:'space-around'
     },
     header: {
@@ -225,12 +217,12 @@ class HomeScreen extends Component {
         paddingBottom: 50
     },
     footer: {
-        flex: 3,
+        flex: 2,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
         borderTopRightRadius: 30,
         alignItems:'center',
-        justifyContent:'center'
+        justifyContent:'flex-start'
     },
     text_header: {
         color: '#000',

@@ -10,12 +10,12 @@ export default function HistoryTransListItem(props) {
         >
             <View style={styles.container}>
             <View style={styles.view_id}>
-                <Text style={styles.text_id}>{transhistory.id}</Text>
+                <Text style={styles.text_id}>{transhistory.transaction_id}</Text>
             </View>
             <View style={styles.view_item}>
                 <Text style={styles.text_info}>From : {transhistory.from}</Text>
                 <Text style={styles.text_info}>To : {transhistory.to}</Text>
-                <Text style={styles.text_info}>Type : {transhistory.type}</Text>
+                <Text style={styles.text_info}>Type : {transhistory.transaction_type.toString()}</Text>
                 <Text style={styles.text_info}>Total Amount : {transhistory.total_amount}</Text>
             </View>
         </View>

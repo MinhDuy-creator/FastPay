@@ -37,10 +37,10 @@ function Signup  (values) {
     .then(([responseJson,res] ) => {
       setData({
         ...data,
-        checkSignup: responseJson
-      })
+        checkSignup: responseJson,
+      });
         if(data.checkSignup == 200){
-            Alert.alert(res.data);
+           
             navigation.navigate('SignInScreen')
         }
         else{
@@ -217,7 +217,7 @@ const updateConfirmSecureTextEntry = () =>{
                   }}
                   >
                     <View style={styles.signUp}>
-                      <TouchableOpacity onPress={Signup}>
+                      <TouchableOpacity onPress={handleSubmit}>
                         <Text style={[styles.textSign,{color:'#E26E43'}]}>Submit</Text>
                       </TouchableOpacity>
                     </View>
