@@ -10,14 +10,14 @@ function SplashScreen  ({navigation}) {
     <View style={styles.container}>
         <LinearGradient
         // Background Linear Gradient
-        colors={['#E26E43', '#F8CE0E']}
+        colors={['#2E3192', '#1BFFFF']}
         style={styles.background}
       />
         <View style={styles.header}>
             <Animatable.Image
             animation="bounceIn"
             duration={1500}
-            source={require('../assets/icon.png')}
+            source={require('../assets/logo1.png')}
             style={styles.logo}
             resizeMode="stretch"
             />
@@ -31,7 +31,8 @@ function SplashScreen  ({navigation}) {
             <View style={styles.button}>
             <TouchableOpacity onPress={() => navigation.navigate('SignInScreen')}> 
                 <LinearGradient
-                    colors={['#E26E43', '#F8CE0E']}
+                    colors={['#2E3192', '#1BFFFF']}
+                    style={styles.background}
                     style={styles.signIn}
                 >
                     <Text style={{color:'#fff'}}>Get Started </Text>

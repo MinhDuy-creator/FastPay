@@ -1,26 +1,25 @@
 
 import * as React from 'react';
 import {Component} from 'react';
-import { StyleSheet,View, Text,Platform, TextInput, TouchableOpacity,StatusBar,Alert } from 'react-native';
+import { StyleSheet,View, Text,Platform, TextInput, TouchableOpacity,Dimensions,Alert } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 class InfoScreen extends Component {
     constructor(props){
       super(props);
       this.state={
         token:global.token,
-        fullname:"",
-        current_money:"",
-        email:"",
-        UpdateInfo:[],
-        phonenum:"",
+        DataFromServer:[],
+        checkLogin:0,
+        PreBudget:0,
         validate_field:false,
         secureTextEntry:true,
       }
     }
 
-     componentDidMount () {
-        setInterval(this.getData,1000)
-     }
+    //  componentDidMount () {
+    //     this.getData();
+    //  }
 
 
      getData = () => {
@@ -38,10 +37,10 @@ class InfoScreen extends Component {
            })
          .then(([responseJson,res]) => {
              if(responseJson == 200){
-                this.setState(
-                    {UpdateInfo:res.data}
-                    );
-               }
+                console.log(res.data)
+                // this.setState({PreBudget:res.})
+                this.setState({DataFromServer:res.data})
+            }
                else{
                  Alert.alert("Loading  Fail");
                }
@@ -55,7 +54,11 @@ class InfoScreen extends Component {
         const { UpdateInfo } = this.state;
         return (
             <View style={styles.container}>
-                
+                <LinearGradient
+                // Background Linear Gradient
+                colors={['#2E3192', '#1BFFFF']}
+                style={styles.background}
+                />
                  <View style={styles.header}>
                     <View style={styles.Box}>
                         <View style={styles.topBox}>
@@ -64,35 +67,23 @@ class InfoScreen extends Component {
                         <View style={styles.bottomBox}>
                             <View style={{flexDirection:'row' , justifyContent:'space-evenly',alignItems:'center'}}>
                                 <View style={{alignItems:'center'}}>
-                                    <Text style={styles.text_bottomBox}>Full Name : </Text>
-                                </View>
-                                <View style={{alignItems:'center',marginTop:2}}>
-                                    <Text style={styles.text_info}>{UpdateInfo.fullname}</Text>
-                                </View>                                                                                                    
+                                    <Text style={styles.text_bottomBox}>Full Name : {this.state.DataFromServer.fullname} </Text>
+                                </View>                                                                                                 
                             </View>
                             <View style={{flexDirection:'row' , justifyContent:'space-evenly',alignItems:'center'}}>
                                 <View style={{alignItems:'center'}}>
-                                    <Text style={styles.text_bottomBox}>Email : </Text>
-                                </View>
-                                <View style={{alignItems:'center',marginTop:2}}>
-                                    <Text style={styles.text_info}>{UpdateInfo.email}</Text>
-                                </View>                                                                                                    
+                                    <Text style={styles.text_bottomBox}>Email : {this.state.DataFromServer.email} </Text>
+                                </View>                                                                                               
                             </View>
                             <View style={{flexDirection:'row' , justifyContent:'space-evenly',alignItems:'center'}}>
                                 <View style={{alignItems:'center'}}>
-                                    <Text style={styles.text_bottomBox}>Phone Number : </Text>
-                                </View>
-                                <View style={{alignItems:'center',marginTop:2}}>
-                                    <Text style={styles.text_info}>{UpdateInfo.phonenum}</Text>
-                                </View>                                                                                                    
+                                    <Text style={styles.text_bottomBox}>Phone Number : {this.state.DataFromServer.phonenum} </Text>
+                                </View>                                                                                                   
                             </View>
                             <View style={{flexDirection:'row' , justifyContent:'space-evenly',alignItems:'center'}}>
                                 <View style={{alignItems:'center'}}>
-                                    <Text style={styles.text_bottomBox}>Current Money : </Text>
-                                </View>
-                                <View style={{alignItems:'center',marginTop:2}}>
-                                    <Text style={styles.text_info}>{UpdateInfo.current_money} đ </Text>
-                                </View>                                                                                                    
+                                    <Text style={styles.text_bottomBox}>Current Money : {this.state.DataFromServer.budget} đ </Text>
+                                </View>                                                                                                 
                             </View>
                         </View>
                     </View>
@@ -113,6 +104,11 @@ class InfoScreen extends Component {
     
 }
 
+    const {height} = Dimensions.get("screen");
+  const height_headerbar = height * 0.1;
+  const {width} = Dimensions.get("screen");
+  const height_logo = height * 0.15;
+
   export default InfoScreen;
 
   const styles = StyleSheet.create({
@@ -120,6 +116,13 @@ class InfoScreen extends Component {
       flex: 1, 
       backgroundColor: '#009387'
     },
+    background: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: height,
+      },
     header: {
         flex: 1,
         justifyContent: 'center',
@@ -149,7 +152,8 @@ class InfoScreen extends Component {
         // marginTop:5,
         color: '#000',
         fontSize: 18,
-        fontWeight:'bold'
+        fontWeight:'bold',
+        
 
     },
     Box:{
@@ -158,8 +162,8 @@ class InfoScreen extends Component {
         borderWidth:5,
     },
     topBox:{
-        justifyContent:'flex-start',
-        alignItems:'flex-start',
+        justifyContent:'space-evenly',
+        alignItems:'center',
         marginBottom:10
     },
     bottomBox:{

@@ -52,7 +52,7 @@ class OTPconfirmScreen extends Component {
         <View style={styles.container}>
           <LinearGradient
                 // Background Linear Gradient
-                colors={['#E26E43', '#F8CE0E']}
+                colors={['#2E3192', '#1BFFFF']}
                 style={styles.background}
             />
             <View style={styles.header}>
@@ -79,7 +79,7 @@ class OTPconfirmScreen extends Component {
                 <TouchableOpacity style={{alignItems:'center',justifyContent:'center'}}
                   onPress={this.OtpConfirm} >
                     <LinearGradient style={styles.signIn}
-                    colors={['#E26E43', '#F8CE0E']}>
+                    colors={['#2E3192', '#1BFFFF']}>
                       <Text style={[styles.textSign,{color:'#fff'}]}>Sign In</Text>
                     </LinearGradient>
                   </TouchableOpacity>

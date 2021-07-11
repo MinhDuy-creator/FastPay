@@ -10,7 +10,11 @@ function RechargeScreen  ({navigation}) {
     const [data, setData] = React.useState({
         Amount:0,
         ID:"",
+        fee:"",
+        check_TextInput: false,
     });
+
+    
     
     
     function Recharge  ()  {
@@ -56,7 +60,7 @@ function RechargeScreen  ({navigation}) {
     <View style={styles.container}>
         <LinearGradient
                 // Background Linear Gradient
-                colors={['#E26E43', '#F8CE0E']}
+                colors={['#2E3192', '#1BFFFF']}
                 style={styles.background}
             />
         <View style={styles.header}>
@@ -87,14 +91,17 @@ function RechargeScreen  ({navigation}) {
                 </View>
             <Text style={styles.text_footer}>Fee</Text>
             <View style={styles.BorderInput}>
-                <Text>1000đ</Text>
+                <Text>{data.amount * 0.005} đ</Text>
             </View>
-            <TouchableOpacity 
-            onPress={Recharge} 
-            style={styles.signIn}>
-                <Text style={[styles.textSign,{color:'#fff'}]}>Perform</Text>
-            </TouchableOpacity>
+            <LinearGradient style={styles.signIn}
+            colors={['#2E3192', '#1BFFFF']}>
+              <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
+                      onPress={Recharge}  >
+                <Text style={[styles.textSign,{color:'#fff'}]}>Sign In</Text>
+              </TouchableOpacity>
+          </LinearGradient>
             </View>
+            
         </ScrollView>
         </View>
     </View>

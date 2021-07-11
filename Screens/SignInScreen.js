@@ -85,7 +85,7 @@ class SignInScreen extends Component {
       <View style={styles.container}>
         <LinearGradient
         // Background Linear Gradient
-        colors={['#E26E43', '#F8CE0E']}
+        colors={['#2E3192', '#1BFFFF']}
         style={styles.background}
         />
         <View style={styles.header}>
@@ -143,20 +143,20 @@ class SignInScreen extends Component {
           </View>
           <View style={styles.button}>
           <LinearGradient style={styles.signIn}
-            colors={['#E26E43', '#F8CE0E']}>
+            colors={['#2E3192', '#1BFFFF']}>
               <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
                       onPress={this._login} >
                 <Text style={[styles.textSign,{color:'#fff'}]}>Sign In</Text>
               </TouchableOpacity>
           </LinearGradient>
             <LinearGradient 
-            colors={['#E26E43', '#F8CE0E']}
+            colors={['#2E3192', '#1BFFFF']}
             style={{marginTop:10,padding:5,borderRadius: 20,width: '50%',
             }}
             >
             <View style={styles.signUp}>
               <TouchableOpacity onPress={() => navigation.navigate('SignUpScreen')}>
-                <Text style={[styles.textSign,{color:'#E26E43'}]}>Sign Up</Text>
+                <Text style={[styles.textSign,{color:'#2E3192'}]}>Sign Up</Text>
               </TouchableOpacity>
             </View>
             </LinearGradient>

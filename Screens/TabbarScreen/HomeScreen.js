@@ -80,7 +80,7 @@ class HomeScreen extends Component {
             >
             <LinearGradient
                 // Background Linear Gradient
-                colors={['#E26E43', '#F8CE0E']}
+                colors={['#2E3192', '#1BFFFF']}
                 style={styles.background}
             />
                  <View style={styles.header}>
@@ -111,8 +111,16 @@ class HomeScreen extends Component {
                                   />
                             </TouchableOpacity>            
                     </View>
+                    <Animatable.Image
+                        animation="bounceIn"
+                        duration={1500}
+                        source={require('../../assets/logo1.png')}
+                        style={styles.logo}
+                        resizeMode="stretch"
+                        />
                     {/* Header Info */}
                     <View style={styles.HeaderInfo}>
+                        
                         <View >
                             <Text style={{fontWeight:'bold'}}>Phone:{this.state.DataFromServer.phone}</Text>
                             <Text style={{fontWeight:'bold'}}>Email :{this.state.DataFromServer.email}</Text>
@@ -129,36 +137,36 @@ class HomeScreen extends Component {
                  style={styles.footer}>
                     <View style={styles.ButtonBox}>      
                               <TouchableOpacity
-                               style={{alignItems:'center',borderWidth:2,borderRadius:10,padding:5,borderColor:'#E26E43'}}
+                               style={{alignItems:'center',borderWidth:2,borderRadius:10,padding:5,borderColor:'#1BFFFF'}}
                                onPress={() => navigation.navigate('RechargeScreen')}
                                >                          
                                     <FontAwesome
                                     name="arrow-circle-right"
-                                    color="#E26E43"
+                                    color="#2E3192"
                                     size={50}
                                     />
                                     <Text style={styles.text_footer}>Recharge</Text>
                               </TouchableOpacity>
                               
                               <TouchableOpacity
-                               style={{alignItems:'center',borderWidth:2,borderRadius:10,padding:5,borderColor:'#E26E43'}}
+                               style={{alignItems:'center',borderWidth:2,borderRadius:10,padding:5,borderColor:'#1BFFFF'}}
                                onPress={() => navigation.navigate('TransferScreen')}
                                >
                                     <FontAwesome
                                     name="random"
-                                    color="#E26E43"
+                                    color="#2E3192"
                                     size={50}
                                     />
                                     <Text style={styles.text_footer}>Transfer</Text>
                               </TouchableOpacity>
                               
                               <TouchableOpacity
-                              style={{alignItems:'center',borderWidth:2,borderRadius:10,padding:5,borderColor:'#E26E43'}}
+                              style={{alignItems:'center',borderWidth:2,borderRadius:10,padding:5,borderColor:'#1BFFFF'}}
                                onPress={() => navigation.navigate('WithdrawalScreen')}
                                >
                                     <FontAwesome
                                     name="arrow-circle-left"
-                                    color="#E26E43"
+                                    color="#2E3192"
                                     size={50}
                                     
                                     // style={}
@@ -179,6 +187,8 @@ class HomeScreen extends Component {
   const {height} = Dimensions.get("screen");
   const height_headerbar = height * 0.1;
   const {width} = Dimensions.get("screen");
+  const height_logo = height * 0.15;
+
   const styles = StyleSheet.create({
     container: {
       flex: 1, 
@@ -204,11 +214,16 @@ class HomeScreen extends Component {
         backgroundColor:'transparent',
         flexDirection:'row',
         width:width,
-        height:200 ,
+        height:50 ,
         alignItems:'flex-end',
         paddingBottom:5,
         justifyContent:'space-around'
     },
+    logo:{
+        margin:10,
+        width: height_logo,
+        height: height_logo,
+},
     header: {
         flex: 1,
         justifyContent: 'flex-start',
@@ -232,7 +247,7 @@ class HomeScreen extends Component {
     },
     text_footer: {
         // marginTop:5,
-        color: '#E26E43',
+        color: '#2E3192',
         fontSize: 18
     },
     ButtonBox:{

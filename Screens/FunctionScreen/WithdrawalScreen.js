@@ -51,6 +51,11 @@ function WithdrawalScreen  ({navigation}) {
       } 
   return (
     <View style={styles.container}>
+        <LinearGradient
+                // Background Linear Gradient
+                colors={['#2E3192', '#1BFFFF']}
+                style={styles.background}
+            />
         <View style={styles.header}>
             <Text style={styles.text_header}>Withdrawal</Text>
             <FontAwesome
@@ -79,13 +84,15 @@ function WithdrawalScreen  ({navigation}) {
                 </View>
             <Text style={styles.text_footer}>Fee</Text>
             <View style={styles.BorderInput}>
-                <Text>1000đ</Text>
+                <Text>{data.amount * 0.005} đ</Text>
             </View>
-            <TouchableOpacity 
-            onPress={Withdraw} 
-            style={styles.signIn}>
-                <Text style={[styles.textSign,{color:'#fff'}]}>Perform</Text>
-            </TouchableOpacity>
+            <LinearGradient style={styles.signIn}
+            colors={['#2E3192', '#1BFFFF']}>
+              <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
+                      onPress={Withdraw}  >
+                <Text style={[styles.textSign,{color:'#fff'}]}>Sign In</Text>
+              </TouchableOpacity>
+          </LinearGradient>
             </View>
         </ScrollView>
         </View>

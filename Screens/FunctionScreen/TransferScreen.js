@@ -4,7 +4,7 @@ import * as React from 'react';
 import { StyleSheet,View, Text,Platform, TextInput, TouchableOpacity,Alert, ScrollView ,FlatList} from 'react-native';
 import { Dimensions } from 'react-native';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
-
+import { LinearGradient } from 'expo-linear-gradient';
 
 function TranferScreen ({navigation}) {
     const [data, setData] = React.useState({
@@ -54,6 +54,11 @@ function TranferScreen ({navigation}) {
 
   return (
     <View style={styles.container}>
+        <LinearGradient
+                // Background Linear Gradient
+                colors={['#2E3192', '#1BFFFF']}
+                style={styles.background}
+            />
         <View style={styles.header}>
             <Text style={styles.text_header}>Transfer</Text>
             <FontAwesome
@@ -97,13 +102,15 @@ function TranferScreen ({navigation}) {
             </View>
             <Text style={styles.text_footer}>Fee</Text>
             <View style={styles.BorderInput}>
-                <Text>1000đ</Text>
+                <Text>{data.amount * 0.005} đ</Text>
             </View>
-            <TouchableOpacity 
-            onPress={Transfer} 
-            style={styles.signIn}>
-                <Text style={[styles.textSign,{color:'#fff'}]}>Perform</Text>
-            </TouchableOpacity>
+            <LinearGradient style={styles.signIn}
+            colors={['#2E3192', '#1BFFFF']}>
+              <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
+                      onPress={Transfer}  >
+                <Text style={[styles.textSign,{color:'#fff'}]}>Sign In</Text>
+              </TouchableOpacity>
+          </LinearGradient>
             </View>
         </ScrollView>
         </View>

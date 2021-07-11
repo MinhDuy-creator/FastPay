@@ -25,10 +25,33 @@ class HistoryTransScreen extends Component   {
       }
 
     //   componentDidMount () {
-    //     this.getListHis();
-       
-    //     // setInterval(
-    //     //     this.getData, 5000)
+    //     fetch(global.url+'payment/get-tx-history?start-date='+this.state.Start+'&end-date='+this.state.End, {
+    //       method: 'GET',
+    //       headers: {
+    //        'Content-Type': 'application/json',
+    //        'token': global.token,
+    //      },
+    //    })
+    //    .then((response) =>  {
+    //        const statusCode = response.status;
+    //        const res = response.json();
+    //        return Promise.all([statusCode, res]);
+    //      })
+    //    .then(([responseJson,res]) => {
+  
+    //       console.log(responseJson);
+    //        if(responseJson == 200){
+    //           console.log(res.data)
+    //           // this.setState({PreBudget:res.})
+    //           this.setState({transHistories:res.data})
+    //       }
+    //          else{
+    //            Alert.alert("Loading  Fail");
+    //          }
+    //    })
+    //    .catch((error) =>{
+    //       console.error(error.data);
+    //   }); 
     //  }
 
       getListHis = () =>  {
@@ -128,7 +151,7 @@ class HistoryTransScreen extends Component   {
             <View style={styles.container}>
             <LinearGradient
                 // Background Linear Gradient
-                colors={['#E26E43', '#F8CE0E']}
+                colors={['#2E3192', '#1BFFFF']}
                 style={styles.background}
             />
                 <View style={styles.header}>
@@ -138,28 +161,28 @@ class HistoryTransScreen extends Component   {
                         color="black"
                         size={80}
                     />
-                    <View>
-                                       
-                    </View>
+                    
                 </View>
                 <View style={styles.footer}>
-                <View style={styles.PickDayBox}>
-                <View style={{width:350,height:100}}>
-                <LinearGradient style={styles.signIn}
-                  colors={['#E26E43', '#F8CE0E']}>
-                    <TouchableOpacity
-                          onPress={this.showMode}
-                          style={{width:350,height:100,alignItems:'center',justifyContent:'center'}}
-                          >
-                            <Feather
-                              name="calendar"
-                              color="black"
-                              size={20}
-                              style={{marginTop:5}}
-                            />
-                            <Text style={[styles.textSign,{color:'black'}]}>Choose Start date</Text>
-                    </TouchableOpacity>
-                  </LinearGradient>
+                  <View style={styles.PickDayBox}>
+                    <View 
+                    style={{width:300,height:100,marginLeft:145}}
+                    >
+                      <LinearGradient style={styles.signIn}
+                        colors={['#2E3192', '#1BFFFF']}>
+                          <TouchableOpacity
+                                onPress={this.showMode}
+                                style={{width:300,height:100,alignItems:'center',justifyContent:'center'}}
+                                >
+                                  <Feather
+                                    name="calendar"
+                                    color="#fff"
+                                    size={20}
+                                    style={{marginTop:5}}
+                                  />
+                                  <Text style={[styles.textSign,{color:'#fff'}]}>Start date</Text>
+                          </TouchableOpacity>
+                      </LinearGradient>
                           { this.state.show ?
                           <DateTimePicker
                           testID="dateTimePicker"
@@ -172,53 +195,55 @@ class HistoryTransScreen extends Component   {
                           }
                         />:null
                         }
-                <Text>{this.state.Start}</Text>    
-                </View>
-                <View style={{width:350,height:100}}>
-                <LinearGradient style={styles.signIn}
-                  colors={['#E26E43', '#F8CE0E']}>
-                  <TouchableOpacity
-                  style={{width:350,height:100,alignItems:'center',justifyContent:'center'}}
-                  onPress={this.showMode1}
-                  >
-                    <Feather
-                      name="calendar"
-                      color="black"
-                      size={20}
-                      style={{marginTop:5}}
-                    />
-                    <Text style={[styles.textSign,{color:'black'}]}>Choose End date</Text>
-                  </TouchableOpacity>
-                </LinearGradient>
-                  { this.state.show1 ?
-                    <DateTimePicker
-                    testID="dateTimePicker"
-                    value={new Date()}
-                    mode="date"
-                    is24Hour={true}
-                    display="spinner"
-                    onChange={
-                      this.onChange1
-                    }
-                  />:null}
-                  <Text>{this.state.End}</Text>    
-                </View>       
-              </View>                     
-              <LinearGradient style={styles.signIn}
-              colors={['#E26E43', '#F8CE0E']}>
-                <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
-                onPress={this.getListHis} >
-                  <Text style={[styles.textSign,{color:'black'}]}>Get List History</Text>
-                </TouchableOpacity>
-              </LinearGradient>    
-                <FlatList
-                  data={transHistories}
-                  renderItem={({ item }) => <HistoryTransListItem transhistory={item}
-                  onPress={() => navigation.navigate('HomeScreen')}
-                  />}
-                  keyExtractor={item => item.transaction_id.toString()}
-                  
-                />
+                      <Text>{this.state.Start}</Text>    
+                    </View>
+                    <View 
+                    style={{width:300,height:100}}
+                    >
+                      <LinearGradient style={styles.signIn}
+                        colors={['#2E3192', '#1BFFFF']}>
+                        <TouchableOpacity
+                        style={{width:300,height:100,alignItems:'center',justifyContent:'center'}}
+                        onPress={this.showMode1}
+                        >
+                          <Feather
+                            name="calendar"
+                            color="#fff"
+                            size={20}
+                            style={{marginTop:5}}
+                          />
+                          <Text style={[styles.textSign,{color:'#fff'}]}>End date</Text>
+                        </TouchableOpacity>
+                      </LinearGradient>
+                      { this.state.show1 ?
+                        <DateTimePicker
+                        testID="dateTimePicker"
+                        value={new Date()}
+                        mode="date"
+                        is24Hour={true}
+                        display="spinner"
+                        onChange={
+                          this.onChange1
+                        }
+                      />:null}
+                      <Text>{this.state.End}</Text>    
+                    </View>       
+                  </View>                     
+                  <LinearGradient style={styles.signIn}
+                  colors={['#2E3192', '#1BFFFF']}>
+                    <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
+                    onPress={this.getListHis} >
+                      <Text style={[styles.textSign,{color:'#fff'}]}>Get List History</Text>
+                    </TouchableOpacity>
+                  </LinearGradient>    
+                  <FlatList
+                    data={transHistories}
+                    renderItem={({ item }) => <HistoryTransListItem transhistory={item}
+                    onPress={() => navigation.navigate('HomeScreen')}
+                    />}
+                    keyExtractor={item => item.transaction_id.toString()}
+                    
+                  />
                 </View>
             </View>
           );
@@ -253,7 +278,7 @@ class HistoryTransScreen extends Component   {
     },
     footer: {
         alignItems:'center',
-        // justifyContent: 'center',
+        justifyContent: 'center',
         flex: 3,
         backgroundColor: '#fff',
         borderTopLeftRadius: 30,
@@ -264,9 +289,10 @@ class HistoryTransScreen extends Component   {
     PickDayBox: {
       width:width,
       flexDirection:'row',
-      justifyContent:'center',
+      justifyContent:'space-evenly',
       alignItems:'center',
-      width:width
+      // backgroundColor:'black'
+      // width:width
     },
     text_header: {
         color: '#000',
