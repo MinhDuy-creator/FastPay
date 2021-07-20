@@ -18,7 +18,7 @@ function AboutUsScreen  ({navigation}) {
             <Animatable.Image
             animation="bounceIn"
             duration={1500}
-            source={require('../../assets/logo1.png')}
+            source={require('../../assets/logo2.png')}
             style={styles.logo}
             resizeMode="stretch"
             />
@@ -68,7 +68,7 @@ function AboutUsScreen  ({navigation}) {
 }
 
 const {height} = Dimensions.get("screen");
-const height_logo = height * 0.28;
+const height_logo = height * 0.13;
 
 const styles = StyleSheet.create({
     container: {
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
         alignItems:'center'
     },
     logo:{
-            width: height_logo,
+            width: 300,
             height: height_logo,
     },
     title:{

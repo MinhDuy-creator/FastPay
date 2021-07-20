@@ -40,8 +40,8 @@ function Signup  (values) {
         checkSignup: responseJson,
       });
         if(data.checkSignup == 200){
-           
-            navigation.navigate('SignInScreen')
+            Alert.alert("Thông báo!","Bạn đã đăng ký  thành công!");
+            navigation.navigate('SignInScreen');
         }
         else{
             Alert.alert("Thông báo!","Bạn đã đăng ký không thành công!");
@@ -68,7 +68,7 @@ const updateConfirmSecureTextEntry = () =>{
         <View style={styles.container}>
         <LinearGradient
         // Background Linear Gradient
-          colors={['#E26E43', '#F8CE0E']}
+        colors={['#2E3192', '#1BFFFF']}
           style={styles.background}
         />
         <View style={styles.header}>
@@ -212,7 +212,7 @@ const updateConfirmSecureTextEntry = () =>{
                 ) : null}
                 <View style={styles.button}>
                   <LinearGradient 
-                  colors={['#E26E43', '#F8CE0E']}
+                   colors={['#2E3192', '#1BFFFF']}
                   style={{marginTop:10,padding:5,borderRadius: 20,width: '50%',
                   }}
                   >

@@ -17,7 +17,7 @@ export default function Tabbar() {
             // color:'red'
             // position:'absolute'
           },
-          activeTintColor:'orange',
+          activeTintColor:'#1BFFFF',
           inactiveTintColor:'black'
         }}
       >

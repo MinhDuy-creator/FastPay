@@ -108,6 +108,7 @@ class SignInScreen extends Component {
               keyboardType = 'numeric'
               placeholder="Your Phone Number"
               style={styles.TextInput}
+              maxLength={10}
               autoCapitalize="none"
               onChangeText={
                 (phonenum) => this.setState({phonenum:phonenum})

@@ -23,36 +23,37 @@ class HistoryTransScreen extends Component   {
             End: "",
         }
       }
+// Function
+      DefaultDate () {
+        var date = new Date().getDate(); //To get the Current Date
+        var day = "";
+        if( Number(date) <= 9){
+          day = "0"+date;
+        }else{
+          day= date
+        }
+        var month = new Date().getMonth() + 1; //To get the Current Month
+        var getmonth ='';
+        var getmonth1 ='';
+        if( Number(month) <= 9){
+          getmonth = "0"+month;
+        }else{
+          getmonth = month;
+        }
+        if( Number(month - 1) <= 9){
+          getmonth1 = "0"+(month - 1);
+        }else{
+          getmonth1 = (month - 1);
+        }
+        var year = new Date().getFullYear(); //To get the Current Year
+        this.setState({End:year+'-'+getmonth+'-'+day});
+        this.setState({Start:year+'-'+getmonth1+'-'+day})
+      }
 
-    //   componentDidMount () {
-    //     fetch(global.url+'payment/get-tx-history?start-date='+this.state.Start+'&end-date='+this.state.End, {
-    //       method: 'GET',
-    //       headers: {
-    //        'Content-Type': 'application/json',
-    //        'token': global.token,
-    //      },
-    //    })
-    //    .then((response) =>  {
-    //        const statusCode = response.status;
-    //        const res = response.json();
-    //        return Promise.all([statusCode, res]);
-    //      })
-    //    .then(([responseJson,res]) => {
-  
-    //       console.log(responseJson);
-    //        if(responseJson == 200){
-    //           console.log(res.data)
-    //           // this.setState({PreBudget:res.})
-    //           this.setState({transHistories:res.data})
-    //       }
-    //          else{
-    //            Alert.alert("Loading  Fail");
-    //          }
-    //    })
-    //    .catch((error) =>{
-    //       console.error(error.data);
-    //   }); 
-    //  }
+      componentDidMount  ()  {
+        this.DefaultDate();
+        this.getListHis;
+     }
 
       getListHis = () =>  {
         fetch(global.url+'payment/get-tx-history?start-date='+this.state.Start+'&end-date='+this.state.End, {
@@ -143,7 +144,7 @@ class HistoryTransScreen extends Component   {
         this.setState({End:year+'-'+getmonth+'-'+day})
         
       };
-
+//Giao Dien
       render(){
           const {transHistories} = this.state;
           const { navigation } = this.props;
@@ -166,7 +167,7 @@ class HistoryTransScreen extends Component   {
                 <View style={styles.footer}>
                   <View style={styles.PickDayBox}>
                     <View 
-                    style={{width:300,height:100,marginLeft:145}}
+                    style={{width:300,height:100, alignItems:'center'}}
                     >
                       <LinearGradient style={styles.signIn}
                         colors={['#2E3192', '#1BFFFF']}>
@@ -198,7 +199,7 @@ class HistoryTransScreen extends Component   {
                       <Text>{this.state.Start}</Text>    
                     </View>
                     <View 
-                    style={{width:300,height:100}}
+                    style={{width:300,height:100, alignItems:'center'}}
                     >
                       <LinearGradient style={styles.signIn}
                         colors={['#2E3192', '#1BFFFF']}>
@@ -295,12 +296,12 @@ class HistoryTransScreen extends Component   {
       // width:width
     },
     text_header: {
-        color: '#000',
+        color: '#fff',
         fontWeight: 'bold',
         fontSize: 30
     },
     signIn: {
-      marginTop:10,
+      marginVertical:10,
       width: '50%',
       height: 50,
       justifyContent: 'center',
@@ -312,14 +313,5 @@ class HistoryTransScreen extends Component   {
     fontSize: 18,
     fontWeight: 'bold'
 },
- 
-
-
-
-
-
-
-
-
   });
 

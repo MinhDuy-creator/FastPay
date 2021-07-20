@@ -25,8 +25,6 @@ export default function RootStackScreen() {
 
     }}
     >
-        
-        <RootStack.Screen name="HistoryTransScreen" component={HistoryTransScreen}/>
         <RootStack.Screen name="SplashScreen" component={SplashScreen}/>
         <RootStack.Screen name="SignInScreen" component={SignInScreen}/>
         <RootStack.Screen name="SignUpScreen" component={SignUpScreen}/>
@@ -34,7 +32,7 @@ export default function RootStackScreen() {
         <RootStack.Screen name="WithdrawalScreen" component={WithdrawalScreen}/>
         <RootStack.Screen name="RechargeScreen" component={RechargeScreen}/>
         <RootStack.Screen name="TransferScreen" component={TransferScreen}/>
-        
+        <RootStack.Screen name="HistoryTransScreen" component={HistoryTransScreen}/>
         <RootStack.Screen name="TransactionDetailScreen" component={TransactionDetailScreen}/>
         <RootStack.Screen name="OTPconfirmScreen" component={OTPconfirmScreen} />
         <RootStack.Screen name="SuccessScreen" component={SuccessScreen}/>

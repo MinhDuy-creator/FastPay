@@ -3,6 +3,9 @@ import * as React from 'react';
 import {Component} from 'react';
 import { StyleSheet,View, Text,Platform, TextInput, TouchableOpacity,Dimensions,Alert } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
+import * as Animatable from 'react-native-animatable';
+import FontAwesome from 'react-native-vector-icons/FontAwesome';
+import Feather from 'react-native-vector-icons/Feather';
 
 class InfoScreen extends Component {
     constructor(props){
@@ -14,13 +17,21 @@ class InfoScreen extends Component {
         PreBudget:0,
         validate_field:false,
         secureTextEntry:true,
+        
       }
     }
 
-    //  componentDidMount () {
-    //     this.getData();
-    //  }
+    
+     componentDidMount () {
+        this.getData();
+        let intervalId = setInterval(
+            this.getData, 5000)
+        this.setState({ intervalId: intervalId })
+     }
 
+     componentWillUnmount(){
+        clearInterval(this.state.intervalId)
+      }
 
      getData = () => {
         fetch(global.url+'get-user', {
@@ -38,7 +49,6 @@ class InfoScreen extends Component {
          .then(([responseJson,res]) => {
              if(responseJson == 200){
                 console.log(res.data)
-                // this.setState({PreBudget:res.})
                 this.setState({DataFromServer:res.data})
             }
                else{
@@ -60,10 +70,30 @@ class InfoScreen extends Component {
                 style={styles.background}
                 />
                  <View style={styles.header}>
+                    <View style={styles.HeaderBar}>
+                            <TouchableOpacity
+                               style={{alignItems:'center'}}
+                               onPress={this.LogOut}
+                            >
+                                <Feather
+                                    name="log-out"
+                                    color="#000"
+                                    size={30}
+                                />
+                            </TouchableOpacity>            
+                        <Text style={styles.title}>Hi {this.state.DataFromServer.fullname}</Text>
+                            <TouchableOpacity
+                               style={{alignItems:'center'}}
+                               onPress={() => navigation.navigate('HistoryTransScreen')}
+                            >
+                                <FontAwesome
+                                  name="history"
+                                  color="black"
+                                  size={30}
+                                  />
+                            </TouchableOpacity>            
+                    </View>
                     <View style={styles.Box}>
-                        <View style={styles.topBox}>
-                            <Text style={styles.text_header}>Account's Profile</Text>
-                        </View >
                         <View style={styles.bottomBox}>
                             <View style={{flexDirection:'row' , justifyContent:'space-evenly',alignItems:'center'}}>
                                 <View style={{alignItems:'center'}}>
@@ -90,12 +120,20 @@ class InfoScreen extends Component {
                 </View>
                     <View style={styles.footer}>
                         <View style={styles.button}>
-                            <TouchableOpacity onPress={() => navigation.navigate('SignUpScreen')} style={styles.signIn}>
-                                <Text style={[styles.textSign,{color:'#fff'}]}>Edit Profile</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity onPress={() => navigation.navigate('SignUpScreen')} style={styles.signIn}>
-                                <Text style={[styles.textSign,{color:'#fff'}]}>Logout</Text>
-                            </TouchableOpacity>
+                            <LinearGradient style={styles.signIn}
+                            colors={['#2E3192', '#1BFFFF']}>
+                                <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
+                                        onPress={this._login} >
+                                    <Text style={[styles.textSign,{color:'#fff'}]}>Update</Text>
+                                </TouchableOpacity>
+                            </LinearGradient>
+                            <LinearGradient style={styles.signIn}
+                                colors={['#2E3192', '#1BFFFF']}>
+                                <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
+                                        onPress={this._login} >
+                                    <Text style={[styles.textSign,{color:'#fff'}]}>LogOut</Text>
+                                </TouchableOpacity>
+                            </LinearGradient>
                         </View>
                     </View>
             </View>
@@ -114,7 +152,7 @@ class InfoScreen extends Component {
   const styles = StyleSheet.create({
     container: {
       flex: 1, 
-      backgroundColor: '#009387'
+     
     },
     background: {
         position: 'absolute',
@@ -123,12 +161,21 @@ class InfoScreen extends Component {
         top: 0,
         height: height,
       },
-    header: {
+      header: {
         flex: 1,
-        justifyContent: 'center',
-        alignItems:'center',
-        paddingHorizontal: 20,
+        justifyContent: 'flex-start',
+        // alignItems:'center',
+        // paddingHorizontal: 20,
         // paddingBottom: 50
+    },
+    HeaderBar:{
+        backgroundColor:'#fff',
+        flexDirection:'row',
+        width:width,
+        height:height_headerbar,
+        alignItems:'flex-end',
+        paddingBottom:10,
+        justifyContent:'space-around'
     },
     footer: {
         flex: 1,
@@ -150,16 +197,18 @@ class InfoScreen extends Component {
     },
     text_bottomBox: {
         // marginTop:5,
-        color: '#000',
+        color: '#fff',
         fontSize: 18,
         fontWeight:'bold',
         
 
     },
     Box:{
+        margin:30,
         padding:10,
         borderRadius: 10,
         borderWidth:5,
+        borderColor:'#1BFFFF',
     },
     topBox:{
         justifyContent:'space-evenly',
@@ -177,15 +226,19 @@ class InfoScreen extends Component {
     },
     signIn: {
         marginTop:10,
-        width: '60%',
+        width: '50%',
         height: 50,
         justifyContent: 'center',
         alignItems: 'center',
-        borderRadius: 10,
-        backgroundColor:'#009387'
+        borderRadius: 20,
     },
     textSign: {
         fontSize: 18,
         fontWeight: 'bold'
+    },
+    title:{
+        color:'#05375a',
+        fontSize:30,
+        fontWeight:'bold',
     },
   });

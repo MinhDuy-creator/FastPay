@@ -7,6 +7,7 @@ import { createStackNavigator } from '@react-navigation/stack';
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import Feather from 'react-native-vector-icons/Feather';
 import { red } from '@material-ui/core/colors';
+import { LinearGradient } from 'expo-linear-gradient';
 
 function WithdrawalScreen  ({navigation}) {
     const [data, setData] = React.useState({
@@ -84,13 +85,13 @@ function WithdrawalScreen  ({navigation}) {
                 </View>
             <Text style={styles.text_footer}>Fee</Text>
             <View style={styles.BorderInput}>
-                <Text>{data.amount * 0.005} đ</Text>
+                <Text>{(data.Amount * 0.005)} đ</Text>
             </View>
             <LinearGradient style={styles.signIn}
             colors={['#2E3192', '#1BFFFF']}>
               <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
                       onPress={Withdraw}  >
-                <Text style={[styles.textSign,{color:'#fff'}]}>Sign In</Text>
+                <Text style={[styles.textSign,{color:'#fff'}]}>Perform</Text>
               </TouchableOpacity>
           </LinearGradient>
             </View>

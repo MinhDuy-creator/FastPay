@@ -16,7 +16,7 @@ function SuccessScreen  ({navigation}) {
             />
             <View style={styles.button}>
                 <TouchableOpacity onPress={() => navigation.navigate('HomeScreen')} style={styles.signIn}>
-                    <Text style={[styles.textSign,{color:'#fff'}]}>Go to Sign In</Text>
+                    <Text style={[styles.textSign,{color:'#fff'}]}>Go to Main</Text>
                 </TouchableOpacity>
             </View>
        </View>

@@ -3,19 +3,29 @@ import { Text, View,StyleSheet, TouchableOpacity } from 'react-native';
 
 export default function HistoryTransListItem(props) {
     const {transhistory , onPress} = props;
+    const [data, setData] = React.useState({
+        Type:"",
+    });
+
+    function typeOfTrans (transhistory){
+        switch(transhistory.transaction_type.toString()){
+            case '1':
+                return 'Top-Up';
+            case '2':
+                return 'Withdraw';
+            case '3':
+                return 'Transfer';
+        }
+    }
     return(
         <TouchableOpacity
             activeOpacity ={0.2} 
             onPress={onPress}
         >
             <View style={styles.container}>
-            <View style={styles.view_id}>
-                <Text style={styles.text_id}>{transhistory.transaction_id}</Text>
-            </View>
             <View style={styles.view_item}>
-                <Text style={styles.text_info}>From : {transhistory.from}</Text>
                 <Text style={styles.text_info}>To : {transhistory.to}</Text>
-                <Text style={styles.text_info}>Type : {transhistory.transaction_type.toString()}</Text>
+                <Text style={styles.text_info}>Type : {typeOfTrans(transhistory)}</Text>
                 <Text style={styles.text_info}>Total Amount : {transhistory.total_amount}</Text>
             </View>
         </View>

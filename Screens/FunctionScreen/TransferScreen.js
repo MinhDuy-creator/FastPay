@@ -102,13 +102,13 @@ function TranferScreen ({navigation}) {
             </View>
             <Text style={styles.text_footer}>Fee</Text>
             <View style={styles.BorderInput}>
-                <Text>{data.amount * 0.005} đ</Text>
+                <Text>{(data.Amount * 0.005)} đ</Text>
             </View>
             <LinearGradient style={styles.signIn}
             colors={['#2E3192', '#1BFFFF']}>
               <TouchableOpacity style={{flex:1,alignItems:'center',justifyContent:'center'}}
                       onPress={Transfer}  >
-                <Text style={[styles.textSign,{color:'#fff'}]}>Sign In</Text>
+                <Text style={[styles.textSign,{color:'#fff'}]}>Perform</Text>
               </TouchableOpacity>
           </LinearGradient>
             </View>

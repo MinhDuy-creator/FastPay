@@ -25,7 +25,7 @@ class OTPconfirmScreen extends Component {
           },
           body: JSON.stringify({
             txid: global.txID,
-            OTP: this.state.OTP,
+            OTP: Number(this.state.OTP),
           })
         })
         .then((response) => {
@@ -67,20 +67,18 @@ class OTPconfirmScreen extends Component {
                             autoCapitalize="none"
                             textAlign="center"
                             maxLength = {6}
-                            onChangeText={(val) => this.setState({OTP:123456})}
+                            onChangeText={(val) => this.setState({OTP:val})}
                         />
                 </View>
-                <Text style={{marginTop:10,fontSize:20}}> 
-                    If you don't get OTP, press below
-                </Text>
+                
                 <TouchableOpacity onPress={ ()=>{}} >
-                    <Text style={[styles.textSign,{color:'#F39C12',fontSize:18}]}>Here</Text>
+                    <Text style={[styles.textSign,{color:'#F39C12',fontSize:14,marginTop:10}]}> If you don't get OTP, press below Here</Text>
                 </TouchableOpacity>
                 <TouchableOpacity style={{alignItems:'center',justifyContent:'center'}}
                   onPress={this.OtpConfirm} >
                     <LinearGradient style={styles.signIn}
                     colors={['#2E3192', '#1BFFFF']}>
-                      <Text style={[styles.textSign,{color:'#fff'}]}>Sign In</Text>
+                      <Text style={[styles.textSign,{color:'#fff'}]}>Submit</Text>
                     </LinearGradient>
                   </TouchableOpacity>
             </View>

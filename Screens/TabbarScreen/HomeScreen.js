@@ -23,26 +23,24 @@ class HomeScreen extends Component {
       }
     }
 
+    
+
      componentDidMount () {
         this.getData();
-       
-        // setInterval(
-        //     this.getData, 5000)
+        let intervalId = setInterval(
+            this.getData, 3000)
+        this.setState({ intervalId: intervalId })
+        
      }
 
-    //  refreshDataFromServer = () => {
-    //      this.getData().then((data)=>{
-    //         console.log(data);
-    //         this.setState({DataFromServer:data});
-    //         console.log(this.state.DataFromServer)
-    //      }).catch((error) => {
-    //         this.setState({DataFromServer:[]});
-    //      });
-    //  }
+    //  componentWillUnmount(){
+    //     this.LogOut();
+    //   }
 
-     LogOut = () => {
-         global.token="";
-         this.props.state.navigation.navigate('SignInScreen');
+     LogOut  = () => {
+        clearInterval(this.state.intervalId)
+        global.token = '';
+        this.props.navigation.navigate("SplashScreen");
      }
 
      getData = () => {
@@ -114,7 +112,7 @@ class HomeScreen extends Component {
                     <Animatable.Image
                         animation="bounceIn"
                         duration={1500}
-                        source={require('../../assets/logo1.png')}
+                        source={require('../../assets/logo2.png')}
                         style={styles.logo}
                         resizeMode="stretch"
                         />
@@ -122,11 +120,11 @@ class HomeScreen extends Component {
                     <View style={styles.HeaderInfo}>
                         
                         <View >
-                            <Text style={{fontWeight:'bold'}}>Phone:{this.state.DataFromServer.phone}</Text>
-                            <Text style={{fontWeight:'bold'}}>Email :{this.state.DataFromServer.email}</Text>
+                            <Text style={{fontWeight:'bold',color:'#fff'}}>Phone:{this.state.DataFromServer.phone}</Text>
+                            <Text style={{fontWeight:'bold',color:'#fff'}}>Email :{this.state.DataFromServer.email}</Text>
                         </View>
                         <View>
-                            <Text style={{fontWeight:'bold'}}>Budget :{this.state.DataFromServer.budget}</Text>
+                            <Text style={{fontWeight:'bold',color:'#fff'}}>Budget :{this.state.DataFromServer.budget}</Text>
                         </View>
                     </View>
                   </View>
@@ -187,7 +185,7 @@ class HomeScreen extends Component {
   const {height} = Dimensions.get("screen");
   const height_headerbar = height * 0.1;
   const {width} = Dimensions.get("screen");
-  const height_logo = height * 0.15;
+  const height_logo = height * 0.13;
 
   const styles = StyleSheet.create({
     container: {
@@ -221,7 +219,7 @@ class HomeScreen extends Component {
     },
     logo:{
         margin:10,
-        width: height_logo,
+        width: 300,
         height: height_logo,
 },
     header: {
@@ -240,7 +238,7 @@ class HomeScreen extends Component {
         justifyContent:'flex-start'
     },
     text_header: {
-        color: '#000',
+        color: '#2E3192',
         fontWeight: 'bold',
         fontSize: 25,
        
