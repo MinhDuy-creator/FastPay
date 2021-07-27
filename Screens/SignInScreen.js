@@ -60,16 +60,17 @@ class SignInScreen extends Component {
         // if(this.state.validate_field == false){
         //   Alert.alert("Please do not leave it blank!!!");
         // } else{
-          if(this.state.checkLogin == 200){
+          // console.log("promise",data.data);
+          if(responseJson == 200){
             // console.log("promise",data.data);
               global.token = data.data;
-              console.log(global.token);
+              // console.log(global.token);
   
               Alert.alert("Logged in successfully!");
               this.props.navigation.navigate("HomeScreen");
           }
           else{
-             console.warn(data);
+             console.warn(data.data);
               Alert.alert("Logged in Fail");
           }
         // }

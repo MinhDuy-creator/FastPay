@@ -1,5 +1,6 @@
 import * as React from 'react';
 import { Text, View,StyleSheet, TouchableOpacity } from 'react-native';
+import { date } from 'yup/lib/locale';
 
 export default function HistoryTransListItem(props) {
     const {transhistory , onPress} = props;
@@ -17,6 +18,16 @@ export default function HistoryTransListItem(props) {
                 return 'Transfer';
         }
     }
+
+    function DateType (transhistory){
+        var newDate = new Date(transhistory.created_at *1000);
+        var day = newDate.getDate();
+        var month = newDate.getMonth() + 1;
+        var year = newDate.getFullYear();     
+        var date = day.toString() + "/" + month.toString() + "/" + year.toString() + "(" + newDate.getHours() + ":"+ newDate.getMinutes() + ")"                     
+        return date;
+    }
+
     return(
         <TouchableOpacity
             activeOpacity ={0.2} 
@@ -27,6 +38,7 @@ export default function HistoryTransListItem(props) {
                 <Text style={styles.text_info}>To : {transhistory.to}</Text>
                 <Text style={styles.text_info}>Type : {typeOfTrans(transhistory)}</Text>
                 <Text style={styles.text_info}>Total Amount : {transhistory.total_amount}</Text>
+                <Text style={styles.text_info}>Date : {DateType(transhistory)}</Text>
             </View>
         </View>
         </TouchableOpacity>

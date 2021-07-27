@@ -43,7 +43,7 @@ function WithdrawalScreen  ({navigation}) {
               }
               else{
                  console.warn(responseJson);
-                  Alert.alert("Transaction Fail");
+                  Alert.alert("Amount Required");
               }
         })
         .catch((error) =>{
@@ -85,7 +85,7 @@ function WithdrawalScreen  ({navigation}) {
                 </View>
             <Text style={styles.text_footer}>Fee</Text>
             <View style={styles.BorderInput}>
-                <Text>{(data.Amount * 0.005)} đ</Text>
+                <Text>{(data.Amount * 0.05)} đ</Text>
             </View>
             <LinearGradient style={styles.signIn}
             colors={['#2E3192', '#1BFFFF']}>
@@ -103,8 +103,8 @@ function WithdrawalScreen  ({navigation}) {
 
   export default WithdrawalScreen;
 
-//   const {height} = Dimensions.get("screen");
-//   const height_logo = height * 0.28;
+  const {height} = Dimensions.get("screen");
+  const height_logo = height * 0.28;
 
   const styles = StyleSheet.create({
     container: {
@@ -128,6 +128,13 @@ function WithdrawalScreen  ({navigation}) {
         paddingHorizontal: 20,
         paddingVertical: 30
     },
+    background: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: height,
+      },
     box_text:{
         borderRadius: 20,
         padding:10,

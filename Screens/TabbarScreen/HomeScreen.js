@@ -63,7 +63,7 @@ class HomeScreen extends Component {
                 this.setState({DataFromServer:res.data})
             }
                else{
-                 Alert.alert("Loading  Fail");
+                 Alert.alert(res.data);
                }
          })
          .catch((error) =>{

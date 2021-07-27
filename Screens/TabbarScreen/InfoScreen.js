@@ -25,7 +25,7 @@ class InfoScreen extends Component {
      componentDidMount () {
         this.getData();
         let intervalId = setInterval(
-            this.getData, 5000)
+            this.getData, 3000)
         this.setState({ intervalId: intervalId })
      }
 
@@ -52,7 +52,7 @@ class InfoScreen extends Component {
                 this.setState({DataFromServer:res.data})
             }
                else{
-                 Alert.alert("Loading  Fail");
+                 Alert.alert(res.data);
                }
          })
          .catch((error) =>{
@@ -107,7 +107,7 @@ class InfoScreen extends Component {
                             </View>
                             <View style={{flexDirection:'row' , justifyContent:'space-evenly',alignItems:'center'}}>
                                 <View style={{alignItems:'center'}}>
-                                    <Text style={styles.text_bottomBox}>Phone Number : {this.state.DataFromServer.phonenum} </Text>
+                                    <Text style={styles.text_bottomBox}>Phone Number : {this.state.DataFromServer.phone} </Text>
                                 </View>                                                                                                   
                             </View>
                             <View style={{flexDirection:'row' , justifyContent:'space-evenly',alignItems:'center'}}>
@@ -198,7 +198,7 @@ class InfoScreen extends Component {
     text_bottomBox: {
         // marginTop:5,
         color: '#fff',
-        fontSize: 18,
+        fontSize: 14,
         fontWeight:'bold',
         
 

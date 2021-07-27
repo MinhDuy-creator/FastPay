@@ -38,7 +38,7 @@ class OTPconfirmScreen extends Component {
                 this.props.navigation.navigate('SuccessScreen');
             }
             else{
-                Alert.alert(res.data);
+                Alert.alert("OTP Required");
             }
         })
         .catch((error) =>{

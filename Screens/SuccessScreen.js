@@ -1,10 +1,16 @@
 import * as React from 'react';
 import { StyleSheet ,View, Text,Image, TouchableOpacity,navigation, TextInput } from 'react-native';
 import { Dimensions } from 'react-native';
+import { LinearGradient } from 'expo-linear-gradient';
 
 function SuccessScreen  ({navigation}) {
   return (
     <View style={styles.container}>
+        <LinearGradient
+        // Background Linear Gradient
+        colors={['#2E3192', '#1BFFFF']}
+        style={styles.background}
+        />
        <View style={styles.SuccessBox}>
            <Text style={styles.title}>
                 Success !!!
@@ -35,6 +41,13 @@ const styles = StyleSheet.create({
      justifyContent:'center',
         alignItems:'center',
     },
+    background: {
+        position: 'absolute',
+        left: 0,
+        right: 0,
+        top: 0,
+        height: height,
+      },
     logo:{
         width: height_logo,
         height: height_logo,

@@ -40,7 +40,7 @@ class HistoryTransScreen extends Component   {
         }else{
           getmonth = month;
         }
-        if( Number(month - 1) <= 9){
+        if( (month - 1) <= 9){
           getmonth1 = "0"+(month - 1);
         }else{
           getmonth1 = (month - 1);
@@ -77,7 +77,7 @@ class HistoryTransScreen extends Component   {
                 this.setState({transHistories:res.data})
             }
                else{
-                 Alert.alert("Loading  Fail");
+                 Alert.alert(res.data);
                }
          })
          .catch((error) =>{

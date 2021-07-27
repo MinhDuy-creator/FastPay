@@ -48,7 +48,7 @@ function RechargeScreen  ({navigation}) {
               }
               else{
                  console.warn(responseJson);
-                  Alert.alert("Transaction Fail");
+                  Alert.alert("Amount Required");
               }
         })
         .catch((error) =>{
@@ -91,7 +91,7 @@ function RechargeScreen  ({navigation}) {
                 </View>
             <Text style={styles.text_footer}>Fee</Text>
             <View style={styles.BorderInput}>
-                <Text>{(data.Amount * 0.005)} đ</Text>
+                <Text>{(data.Amount * 0.05)} đ</Text>
             </View>
             <LinearGradient style={styles.signIn}
             colors={['#2E3192', '#1BFFFF']}>

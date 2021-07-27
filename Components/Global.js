@@ -1,3 +1,3 @@
 global.token = "";
-global.url = "http://52c9392131f2.ngrok.io/";
+global.url = "http://0ff9854c4f1e.ngrok.io/";
 global.txID = "";

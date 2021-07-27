@@ -39,16 +39,17 @@ function Signup  (values) {
         ...data,
         checkSignup: responseJson,
       });
-        if(data.checkSignup == 200){
-            Alert.alert("Thông báo!","Bạn đã đăng ký  thành công!");
+        if(responseJson == 200){
+            
             navigation.navigate('SignInScreen');
+            Alert.alert(res.data);
         }
         else{
-            Alert.alert("Thông báo!","Bạn đã đăng ký không thành công!");
+            Alert.alert(res.data);
         }
     })
     .catch((error) =>{
-      console.error(error.error);
+      console.error(error);
     });
   }
 
